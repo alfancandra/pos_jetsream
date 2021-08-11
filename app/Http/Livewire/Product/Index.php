@@ -4,9 +4,16 @@ namespace App\Http\Livewire\Product;
 
 use Livewire\Component;
 use App\Models\Product;
+use Livewire\WithPagination;
 
 class Index extends Component
 {
+    use WithPagination;
+
+    public $paginate = 10;
+
+    public $searchProduct;
+    protected $queryString = ['searchProduct'];
 
     protected $listeners = ['storeProduct','newUpdateProduct'];
     public $updateProduct = false;
@@ -21,13 +28,18 @@ class Index extends Component
     {
         $product = Product::find($id);
         $product->delete();
-        session()->flash('message','Product Berhasil dihapus');
     }
 
     public function render()
     {
         return view('livewire.product.index',[
-            'products' => Product::orderBy('created_at','desc')->get()
+            'products' => $this->paginate == null ? 
+            Product::where('name_product','like', '%'.$this->searchProduct.'%')
+            ->orWhere('code_product','like', '%'.$this->searchProduct.'%')
+            ->orderBy('created_at','desc')->paginate($this->paginate) : 
+            Product::where('name_product','like', '%'.$this->searchProduct.'%')
+            ->orWhere('code_product','like', '%'.$this->searchProduct.'%')
+            ->orderBy('created_at','desc')->paginate($this->paginate)
         ]);
     }
 

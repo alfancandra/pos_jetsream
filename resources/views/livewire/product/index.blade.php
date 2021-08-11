@@ -6,17 +6,21 @@
         @if($updateProduct)
         <h1 class="h3 pb-2 mb-5 border-bottom">Form Update Product</h1>
           @if(session()->has('message'))
-            <div class="alert alert-success">
-                {{ session('message') }}
-            </div>
+            <script>
+              Swal.fire(
+                '{{ session('message') }}'
+              )
+            </script>
           @endif
           @livewire('product.update')
         @else
         <h1 class="h3 pb-2 mb-5 border-bottom">Form Create Product</h1>
           @if(session()->has('message'))
-            <div class="alert alert-success">
-                {{ session('message') }}
-            </div>
+            <script>
+              Swal.fire(
+                '{{ session('message') }}'
+              )
+            </script>
           @endif
           @livewire('product.create')
         @endif
@@ -27,9 +31,15 @@
       <div class="card-body pb-5">
         <nav class="navbar navbar-light bg-light">
           <div class="container-fluid">
-            <a class="navbar-brand">List Product</a>
+            <div class="navbar-brand">
+              <select class="form-select" wire:model="paginate">
+                <option value="10">10</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+              </select>
+            </div>
             <div class="d-flex">
-              <input type="search" class="form-control" name="" placeholder="Search" aria-label="search">
+              <input type="search" wire:model="searchProduct" class="form-control" name="" placeholder="Search" aria-label="search">
             </div>
           </div>
         </nav>
@@ -59,6 +69,7 @@
             @endforeach
           </tbody>
         </table>
+        {{ $products->links() }}
       </div>
     </div>
 </div>
@@ -77,6 +88,7 @@
       reverseButtons: true
       }).then((result) => {
         if (result.isConfirmed) {
+          @this.call('deleteProduct',idProduct)
           Swal.fire(
             'Deleted!',
             'Your file has been deleted.',
@@ -85,11 +97,11 @@
         } else if (
           /* Read more about handling dismissals below */
           result.dismiss === Swal.DismissReason.cancel
-        ) {
-          Swal.fire(
-            'Cancelled',
-            'Your imaginary file is safe :)',
-            'error'
+          ) {
+            Swal.fire(
+              'Cancelled',
+              'Your imaginary file is safe :)',
+              'error'
           )
         }
       })
