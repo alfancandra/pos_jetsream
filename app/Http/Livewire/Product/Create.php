@@ -25,9 +25,9 @@ class Create extends Component
             'price' => $this->price,
         ]);
 
-        $this->deleteInput();
+        $this->emit('storeProduct',$product);
 
-        session()->flash('message', 'Product berhasil Ditambahkan');
+        $this->deleteInput();
     }
 
     public function deleteInput(){

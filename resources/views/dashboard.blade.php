@@ -8,9 +8,11 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+                
+
                 <div class="card-body border pb-5">
-                    <h1 class="h3 pb-2 mb-5 border-bottom">Form Create Product</h1>
-                    @livewire('product.create')
+                    
+                    @livewire('product.index')
                 </div>
             </div>
         </div>

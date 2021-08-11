@@ -1,5 +1,6 @@
 <div>
-    <form class="row g-3" wire:submit.prevent="submit">
+    <form class="row g-3" wire:submit.prevent="update">
+      <input type="hidden" wire:model="productId">
       <div class="col-12">
         <label for="inputEmail4" class="form-label">Nama Produk</label>
         <input type="text" wire:model="name_product" class="form-control" id="inputEmail4" placeholder="Contoh : Baju Lengan panjang" required>
@@ -17,7 +18,7 @@
       </div>
       
       <div class="col-12 pt-2">
-        <button type="submit" class="btn btn-primary w-100">Submit</button>
+        <button type="submit" class="btn btn-primary w-100">Update</button>
       </div>
     </form>
 </div>
