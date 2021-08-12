@@ -52,16 +52,16 @@
                         <td>
                             <div wire:ignore>
                                 @if ($transaction->qty>1)
-                                    <span class="btn btn-danger btn-sm">-</span>    
+                                    <span class="btn btn-danger btn-sm" wire:click="decrement({{ $transaction->id }})">-</span>    
                                 @endif
                                 <input type="text" class="form-control qty" value="{{ $transaction->qty }}" readonly>
-                                <span class="btn btn-success btn-sm" >+</span>
+                                <span class="btn btn-success btn-sm" wire:click="increment({{ $transaction->id }})" >+</span>
                             </div>
                         </td>
                         <td>Rp. {{ number_format($transaction->product->price) }}  </td>
                         <td>Rp. {{ number_format($transaction->product->price*$transaction->qty) }} </td>
                         <td>
-                            <button type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                            <button type="button" wire:click="deleteOne({{ $transaction->id }})" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                         </td>
                     </tr>
                     @endforeach
@@ -72,7 +72,7 @@
                     <td></td>
                     <td style="text-align:right;">Total Pembelian</td>
                     <td>
-                        Rp 
+                        Rp {{ number_format($transactions->sum('total')) }}
                     </td>
                     <tr>
                         <td style="border:none;"></td>
@@ -89,14 +89,18 @@
                         <td style="border:none;"></td>
                         <td style="text-align:right;">Kembalian</td>
                         <td style="text-align:left;">
-                            Rp  
+                            Rp  {{ number_format($pembayaran - $transactions->sum('total'))}}
                         </td>
+                    </tr>
+                    <tr>
+                        <td style="border:none;"></td>
+                        <td style="border:none;"></td>
+                        <td style="border:none;"></td>
+                        <td style="border:none;"></td>
+                        <td style="border: none"><button type="button" wire:click="save" class="btn btn-success btn-lg float-right">Submit</button></td>
                     </tr>
                 </tfoot>
             </table>
-            <div class="">
-                <button type="button" wire:click="save" class="btn btn-success btn-sm float-right">Submit</button>
-            </div>
         </div>
     </div>
 </div>
