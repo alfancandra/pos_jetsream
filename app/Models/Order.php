@@ -13,4 +13,9 @@ class Order extends Model
         'no_order',
         'nama_kasir'
     ];
+
+    public function productOrder()
+    {
+        return $this->hasMany('App\Models\OrderProduct','order_id');
+    }
 }
