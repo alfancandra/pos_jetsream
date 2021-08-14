@@ -31,6 +31,7 @@ class Index extends Component
         session()->flash('message','Produk Berhasil ditambahkan');
     }
 
+    // increment QTY
     public function increment($id)
     {
         $transaction = Transaction::find($id);
@@ -44,6 +45,7 @@ class Index extends Component
         return redirect()->to('/kasir');
     }
 
+    // Decrement QTY
     public function decrement($id)
     {
         $transaction = Transaction::find($id);
@@ -57,6 +59,7 @@ class Index extends Component
         return redirect()->to('/kasir');
     }
 
+    // Hapus 1 transaksi
     public function deleteOne($id)
     {
         $transaction = Transaction::find($id);
@@ -72,6 +75,7 @@ class Index extends Component
         ]);
     }
 
+    // Submit data transaksi
     public function save()
     {
         $order = Order::create([
