@@ -18,6 +18,7 @@ class Index extends Component
         'product_id' => 'required|unique:transactions'
     ];
 
+    // Submit ke Transaction
     public function submit()
     {
         $this->validate();
